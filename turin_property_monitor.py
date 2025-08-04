@@ -1,6 +1,7 @@
-
+'''
 Turin Property Monitor - Idealista Scraper
 A Python script to monitor property listings on Idealista for Turin
+'''
 
 import requests
 from bs4 import BeautifulSoup
