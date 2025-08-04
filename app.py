@@ -1,11 +1,35 @@
-from flask import Flask, jsonify
-from turin_property_monitor import TurinPropertyMonitor
+from flask import Flask, jsonify, render_template, send_from_directory
 import os
 import threading
+from turin_property_monitor import TurinPropertyMonitor
 
 app = Flask(__name__)
 
-# Initialize the monitor in a background thread
+# Serve the main dashboard
+@app.route('/')
+def dashboard():
+    return send_from_directory('.', 'index.html')
+
+# Serve CSS files
+@app.route('/style.css')
+def serve_css():
+    return send_from_directory('.', 'style.css')
+
+# Serve JS files  
+@app.route('/app.js')
+def serve_js():
+    return send_from_directory('.', 'app.js')
+
+# API endpoints (keep your existing ones)
+@app.route('/api/status')
+def api_status():
+    return jsonify({"service": "Turin Property Monitor", "status": "running"})
+
+@app.route('/status')
+def get_status():
+    return jsonify({"message": "Property monitoring service is active"})
+
+# Initialize monitoring in background
 def start_monitoring():
     config = {
         "search_criteria": {
@@ -21,14 +45,6 @@ def start_monitoring():
     monitor = TurinPropertyMonitor(config)
     monitor.monitor_properties()
 
-@app.route('/')
-def health_check():
-    return jsonify({"status": "running", "service": "Turin Property Monitor"})
-
-@app.route('/status')
-def get_status():
-    return jsonify({"message": "Property monitoring service is active"})
-
 if __name__ == '__main__':
     # Start monitoring in background thread
     monitoring_thread = threading.Thread(target=start_monitoring, daemon=True)
@@ -36,4 +52,4 @@ if __name__ == '__main__':
     
     # Start Flask app
     port = int(os.environ.get('PORT', 10000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=False)
