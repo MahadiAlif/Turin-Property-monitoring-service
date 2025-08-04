@@ -1,0 +1,173 @@
+{
+  "system_components": {
+    "data_sources": {
+      "idealista": {
+        "base_url": "https://www.idealista.it/affitto-case/torino-torino/",
+        "search_params": [
+          "price_range",
+          "location",
+          "property_type",
+          "size"
+        ],
+        "scraping_method": "BeautifulSoup + Requests"
+      },
+      "cercoaloggio": {
+        "base_url": "https://www.cercoaloggio.it/",
+        "search_params": [
+          "price_range",
+          "location",
+          "property_type",
+          "rooms"
+        ],
+        "scraping_method": "BeautifulSoup + Requests"
+      },
+      "subito": {
+        "base_url": "https://www.subito.it/annunci-piemonte/affitto/appartamenti/torino/torino/",
+        "search_params": [
+          "price_range",
+          "location",
+          "property_type"
+        ],
+        "scraping_method": "BeautifulSoup + Requests"
+      }
+    },
+    "core_features": {
+      "monitoring": {
+        "description": "Continuous monitoring of property listings",
+        "frequency": "configurable (every 15-30 minutes)",
+        "filters": [
+          "price_min",
+          "price_max",
+          "location",
+          "property_type",
+          "rooms"
+        ]
+      },
+      "notifications": {
+        "channels": [
+          "email",
+          "SMS",
+          "push_notifications",
+          "telegram"
+        ],
+        "triggers": [
+          "new_listing",
+          "price_drop",
+          "matching_criteria"
+        ],
+        "customization": "user_preferences"
+      },
+      "data_storage": {
+        "database": "SQLite or PostgreSQL",
+        "structure": [
+          "listings",
+          "users",
+          "alerts",
+          "notifications"
+        ],
+        "retention": "configurable"
+      },
+      "filtering": {
+        "price_range": {
+          "min": 0,
+          "max": 3000
+        },
+        "location_zones": [
+          "Centro",
+          "Crocetta",
+          "San Salvario",
+          "Borgo Po",
+          "Vanchiglia"
+        ],
+        "property_types": [
+          "apartment",
+          "studio",
+          "room",
+          "house"
+        ],
+        "rooms": [
+          1,
+          2,
+          3,
+          4,
+          "5+"
+        ]
+      }
+    },
+    "technical_stack": {
+      "backend": {
+        "language": "Python",
+        "framework": "FastAPI or Flask",
+        "libraries": [
+          "requests",
+          "beautifulsoup4",
+          "SQLAlchemy",
+          "APScheduler"
+        ]
+      },
+      "notifications": {
+        "email": "smtplib or sendgrid",
+        "sms": "twilio",
+        "telegram": "python-telegram-bot",
+        "push": "firebase or pushover"
+      },
+      "scheduling": {
+        "library": "APScheduler",
+        "deployment": "cron jobs or systemd timers"
+      },
+      "deployment": {
+        "options": [
+          "VPS",
+          "cloud (AWS/GCP)",
+          "local_server",
+          "raspberry_pi"
+        ],
+        "containerization": "Docker"
+      }
+    }
+  },
+  "sample_configuration": {
+    "search_criteria": {
+      "price_range": {
+        "min": 300,
+        "max": 800
+      },
+      "locations": [
+        "Centro Storico",
+        "Crocetta",
+        "San Salvario",
+        "Vanchiglia",
+        "Borgo Po"
+      ],
+      "property_types": [
+        "apartment",
+        "studio"
+      ],
+      "min_rooms": 1,
+      "max_rooms": 3
+    },
+    "notification_settings": {
+      "email": "user@example.com",
+      "telegram_chat_id": "123456789",
+      "notification_frequency": "immediate",
+      "daily_summary": true
+    },
+    "monitoring_schedule": {
+      "interval_minutes": 30,
+      "active_hours": {
+        "start": "08:00",
+        "end": "22:00"
+      },
+      "days": [
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday"
+      ]
+    }
+  },
+  "generated_at": "2025-08-04T10:40:04.526877"
+}
